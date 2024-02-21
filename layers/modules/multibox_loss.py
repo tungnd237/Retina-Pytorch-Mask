@@ -57,20 +57,20 @@ class MultiBoxLoss(nn.Module):
         loc_data, conf_data, landm_data, mask_data = predictions
         priors = priors
         num = loc_data.size(0)
-        print(num)
         num_priors = (priors.size(0))
+        print("num", num)
 
         # match priors (default boxes) and ground truth boxes
-        loc_t = torch.Tensor(num, num_priors, 4).cuda()
-        landm_t = torch.Tensor(num, num_priors, 10).cuda()
-        conf_t = torch.LongTensor(num, num_priors, 2).cuda()
+        loc_t = torch.Tensor(num, num_priors, 4)
+        landm_t = torch.Tensor(num, num_priors, 10)
+        conf_t = torch.LongTensor(num, num_priors, 2)
 
         for idx in range(num):
             print("targets", len(targets))
-            truths = targets[idx][:, :4].data
-            labels = targets[idx][:, 14:].data
-            landms = targets[idx][:, 4:14].data
-            defaults = priors.data
+            truths = targets[idx][:, :4].data.cuda()
+            labels = targets[idx][:, 14:].data.cuda()
+            landms = targets[idx][:, 4:14].data.cuda()
+            defaults = priors.data.cuda()
             new_match(self.threshold, truths, defaults, self.variance, labels, landms, loc_t, conf_t, landm_t, idx)
         if GPU:
             loc_t = loc_t.cuda()
