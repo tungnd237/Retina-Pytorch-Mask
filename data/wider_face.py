@@ -25,7 +25,7 @@ class WiderFaceDetection(data.Dataset):
                     self.words.append(labels_copy)
                     labels.clear()
                 path = line[2:]
-                path = txt_path.replace('label.txt','images/') + path
+                path = txt_path.replace('label2.txt','images/') + path
                 self.imgs_path.append(path)
             else:
                 line = line.split(' ')
