@@ -60,9 +60,9 @@ class MultiBoxLoss(nn.Module):
         num_priors = (priors.size(0))
 
         # match priors (default boxes) and ground truth boxes
-        loc_t = torch.Tensor(num, num_priors, 4)
-        landm_t = torch.Tensor(num, num_priors, 10)
-        conf_t = torch.LongTensor(num, num_priors, 2)
+        loc_t = torch.Tensor(num, num_priors, 4).cuda()
+        landm_t = torch.Tensor(num, num_priors, 10).cuda()
+        conf_t = torch.LongTensor(num, num_priors, 2).cuda()
 
         for idx in range(num):
             truths = targets[idx][:, :4].data
