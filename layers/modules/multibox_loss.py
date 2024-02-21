@@ -66,7 +66,7 @@ class MultiBoxLoss(nn.Module):
         conf_t = torch.LongTensor(num, num_priors, 2).cuda()
 
         for idx in range(num):
-            print("targets", targets.size())
+            print("targets", len(targets))
             truths = targets[idx][:, :4].data
             labels = targets[idx][:, 14:].data
             landms = targets[idx][:, 4:14].data
