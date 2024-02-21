@@ -79,7 +79,7 @@ class MultiBoxLoss(nn.Module):
         conf_t = conf_t[:, :, 0].long()
         
 
-        zeros = torch.tensor(0)
+        zeros = torch.tensor(0).cuda()
         # landm Loss (Smooth L1)
         # Shape: [batch,num_priors,10]
         pos1 = conf_t > zeros
