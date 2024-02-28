@@ -173,7 +173,7 @@ class RetinaFace(nn.Module):
         feature2 = self.ssh2(fpn[1])
         feature3 = self.ssh3(fpn[2])
         features = [feature1, feature2, feature3]
-
+        """
         bbox_regressions = torch.cat([self.BboxHead[i](feature) for i, feature in enumerate(features)], dim=1)
         roi_boxes = self.convert_bbox_format_and_scale(bbox_regressions, features, inputs)
 
@@ -182,6 +182,7 @@ class RetinaFace(nn.Module):
         roi_aligned_feature2 = roi_align(feature2, roi_boxes, output_size=(7, 7))
         roi_aligned_feature3 = roi_align(feature3, roi_boxes, output_size=(7, 7))
         features = [roi_aligned_feature1, roi_aligned_feature2, roi_aligned_feature3]
+        """
         
         bbox_regressions = torch.cat([self.BboxHead[i](feature) for i, feature in enumerate(features)], dim=1)
         classifications = torch.cat([self.ClassHead[i](feature) for i, feature in enumerate(features)], dim=1)
