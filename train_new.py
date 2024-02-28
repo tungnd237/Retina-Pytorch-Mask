@@ -71,7 +71,6 @@ if args.resume_net is not None:
     net.load_state_dict(new_state_dict)
 
 if num_gpu > 1 and gpu_train:
-    print(hey)
     net = torch.nn.DataParallel(net).cuda()
 else:
     net = net.cuda()

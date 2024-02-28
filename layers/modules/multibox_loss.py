@@ -58,7 +58,7 @@ class MultiBoxLoss(nn.Module):
         priors = priors
         num = loc_data.size(0)
         num_priors = (priors.size(0))
-        print("num", num)
+        #print("num", num)
 
         # match priors (default boxes) and ground truth boxes
         loc_t = torch.Tensor(num, num_priors, 4)
@@ -66,7 +66,7 @@ class MultiBoxLoss(nn.Module):
         conf_t = torch.LongTensor(num, num_priors, 2)
 
         for idx in range(num):
-            print("targets", len(targets))
+            #print("targets", len(targets))
             truths = targets[idx][:, :4].data.cuda()
             labels = targets[idx][:, 14:].data.cuda()
             landms = targets[idx][:, 4:14].data.cuda()
@@ -90,8 +90,6 @@ class MultiBoxLoss(nn.Module):
         pos_idx1 = pos1.unsqueeze(pos1.dim()).expand_as(landm_data)
         landm_p = landm_data[pos_idx1].view(-1, 10)
         landm_t = landm_t[pos_idx1].view(-1, 10)
-        print("device 1", landm_t.device)
-        print("device 2", landm_t.device)
         loss_landm = F.smooth_l1_loss(landm_p, landm_t, reduction='sum')
 
         pos = conf_t != zeros
