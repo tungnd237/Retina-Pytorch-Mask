@@ -118,6 +118,8 @@ def train():
 
         # load train data
         images, targets = next(batch_iterator)
+        images = images.cuda()
+        targets = [anno.cuda() for anno in targets]
 
         # forward
         out = net(images)
